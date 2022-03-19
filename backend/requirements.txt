@@ -4,3 +4,4 @@ django-crispy-forms
 social-auth-app-django
 python-jose
 lxml
+djangorestframework

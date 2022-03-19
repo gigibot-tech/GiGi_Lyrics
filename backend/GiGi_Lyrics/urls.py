@@ -31,10 +31,9 @@ def time(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
-    path('', include('loginsystem.urls')),
-    path('auth/', include('social_django.urls', namespace='social')),  # <- Here
-    path('', include('scrap.urls')),
-    path('', include('userdata.urls')),
-]
-
+    path('', include('scrap.urls'))
+    #path('', include('userdata.urls')),
+    #path('', include('loginsystem.urls')),
+    #path('auth/', include('social_django.urls', namespace='social'))
+    ]
 urlpatterns += staticfiles_urlpatterns()

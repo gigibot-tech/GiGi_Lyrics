@@ -1,9 +1,9 @@
-from django.conf.urls import url
+from django.urls import path
 from scrap import views
 
 
 urlpatterns =[
 
-    url(r'^search$', views.search),
-    url(r'^results$', views.results),
+    path('/search', views.search, name='search'),
+    path('/results', views.results, name='result'),
 ]

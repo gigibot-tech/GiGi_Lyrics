@@ -38,7 +38,7 @@ def getlist(query):
 
         data = response.text
 
-        soup = BeautifulSoup(data, 'lxml')
+        soup = BeautifulSoup(data, 'html.parser')
         boldtag = soup.find_all("td", {"class": "text-left visitedlyr"})
 
         tags = soup.find_all('a')

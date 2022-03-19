@@ -29,7 +29,7 @@ def home(request):
         return JsonResponse(json.dumps(getresult), safe=False)
         #return JSONRenderer().render(getresult)
         #return Response(getlist(search_query))
-
+    return render(request, 'home.html')
 
 
 
