@@ -4,6 +4,6 @@ from scrap import views
 
 urlpatterns =[
 
-    path('/search', views.search, name='search'),
-    path('/results', views.results, name='result'),
+    path('api/search', views.search, name='search'),
+    path('api/results', views.results, name='results')
 ]

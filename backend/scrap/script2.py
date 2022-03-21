@@ -39,7 +39,7 @@ def getlyrics(url_str):
 
         req = requests.get(url)
 
-        soup = BeautifulSoup(req.content, "lxml")
+        soup = BeautifulSoup(req.content, "html.parser")
         mm = str(soup)
 
         c = mm.count("<div>")
@@ -54,11 +54,18 @@ def getlyrics(url_str):
             mydata = mm[startpos:endpos]
             pos = endpos
             c -= 1
-        print(mydata)
-        # cleantext = BeautifulSoup(mydata, "lxml")
-        # cleantext=cleantext.get_text()
-        # sys.stdout.flush()
+        print(mydata+'print')
+
+        cleantext = BeautifulSoup(mydata, "html.parser")
+        cleantext=cleantext.get_text()
+        sys.stdout.flush()
+        
+        mydata = mydata.split('<i>[Japanese:]</i>',1)
+        if(len(mydata)>1):
+            print(mydata[1]+'print2')
+            mydata[1:2] = mydata[1].split('<i>[English translation:]</i>',1)
         return mydata
+        #return re.split(r'',mydata,flag=re.IGNORECASE,maxsplit=)
 
 
 if __name__ == '__main__':

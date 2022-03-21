@@ -8,7 +8,11 @@ from userdata.models import Song_table
 
 def search(request):
     rb = getlist()
-    return render(request, 'search.html', {"key": rb})
+    return JsonResponse(json.dumps(
+        {
+        "key": getlist()
+        }
+    ,safe=False))
 
 def results(request):
 
@@ -17,24 +21,19 @@ def results(request):
     result_artist = request.GET.get('song_artist', '')
 
 
-    try:
-        song = Song_table()
-        song.song_name = result_song
-        song.song_artist = result_artist
-        song.song_url = result_url
-        song.user_email = request.user.username
-        song.save()
-
-    except IntegrityError as e:
-        # return HttpResponse('/contact')
-        pass
-
+#    try:
+    song = Song_table()
+    song.song_name = result_song
+    song.song_artist = result_artist
+    song.song_url = result_url
+    song.user_email = request.user.username
+    song.save()
+#error
 
     get_lyrics_data = getlyrics(result_url)
     print(get_lyrics_data)
 
 
-    #return render(request, 'search_result.html', 
     return JsonResponse(json.dumps(
         {
         "lyrics": get_lyrics_data,

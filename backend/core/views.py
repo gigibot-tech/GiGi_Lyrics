@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.shortcuts import render
 from core.models import Artist
 from django.template.loader import render_to_string
@@ -14,10 +15,57 @@ from rest_framework.renderers import JSONRenderer
 import json
 
 from . import version
-# Create your views here.
+# Create your views here. ###
+from django.http.response import JsonResponse
+from django.shortcuts import render,redirect
+from scrap.script import getlist
+from scrap.script2 import getlyrics
+from userdata.form import Song_all
+from userdata.models import Song_table
 
 
-def home(request):
+def search(request):
+    rb = getlist()
+    return render(request, 'search.html', {"key": rb})
+
+def results(request):
+
+    result_url = request.GET.get('song_url', '')
+    result_song = request.GET.get('song_name', '')
+    result_artist = request.GET.get('song_artist', '')
+
+
+    try:
+        song = Song_table()
+        song.song_name = result_song
+        song.song_artist = result_artist
+        song.song_url = result_url
+        song.user_email = request.user.username
+        song.save()
+
+    except IntegrityError as e:
+        # return HttpResponse('/contact')
+        pass
+
+
+    lyrics_data = getlyrics(result_url)
+    if(len(lyrics_data)<2):
+        lyrics_data.append('')
+    if(len(lyrics_data)<3):
+        lyrics_data.append('')
+    #print(lyrics_data)
+    
+    return render(request, 'search_result.html', 
+        {
+        "lyrics": lyrics_data[0],
+        "lyricsjp": lyrics_data[1],
+        "lyricseng": lyrics_data[2],
+        "result_song": result_song,
+        "result_artist": result_artist,
+    })
+####
+
+def homeapi(request):
 
     search_query = request.GET.get('search', '')
     print(search_query)
@@ -32,6 +80,16 @@ def home(request):
     return render(request, 'home.html')
 
 
+def home(request):
+
+    search_query = request.GET.get('search', '')
+    print(search_query)
+    if len(search_query)>0:
+        getresult = getlist(search_query)
+        print(getresult)
+        return render(request, 'home.html', {"results": getresult})
+        #return Response(getlist(search_query))
+    return render(request, 'home.html')
 
 
 

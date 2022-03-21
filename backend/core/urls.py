@@ -9,6 +9,8 @@ urlpatterns = [
         views.ServiceWorkerView.as_view(),
         name=views.ServiceWorkerView.name,
     ),
+    path('search/', views.search, name='search'),
+    path('results/', views.results, name='results')
 
 ]
 

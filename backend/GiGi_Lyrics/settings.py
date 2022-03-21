@@ -158,8 +158,8 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(BASE_DIR, "static/"),
-    os.path.join(BASE_DIR, "static/GiGi_Lyrics/"), # this is for static/GiGi_Lyrics/main.css
+    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "static\GiGi_Lyrics"), # this is for static/GiGi_Lyrics/main.css
 )
 
 # Default primary key field type
