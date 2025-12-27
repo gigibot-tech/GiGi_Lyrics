@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "android": "expo run:android",
-    "ios": "expo run:ios",
-    "web": "expo start --web",
-    "start": "react-native start"
+    "android": "NODE_OPTIONS=--openssl-legacy-provider expo run:android",
+    "ios": "NODE_OPTIONS=--openssl-legacy-provider expo run:ios",
+    "web": "NODE_OPTIONS=--openssl-legacy-provider expo start --web",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider react-native start"
   },
   "proxy": "https://134.61.177.128:80/",
   "dependencies": {
